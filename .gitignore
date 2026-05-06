@@ -1,0 +1,11 @@
+# Secret config
+src/main/resources/application-secret.properties
+
+# Build folder
+target/
+
+# IntelliJ
+.idea/
+
+# Java compiled files
+*.class
