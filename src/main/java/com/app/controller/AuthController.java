@@ -1,6 +1,8 @@
 package com.app.controller;
 
 import com.app.entity.User;
+import com.app.exception.InvalidCredentialsException;
+import com.app.exception.ResourceAlreadyExistsException;
 import com.app.payload.JWTTokenDto;
 import com.app.payload.LoginDto;
 import com.app.repository.UserRepository;
@@ -37,11 +39,12 @@ public class AuthController {
             ){
         Optional<User> byUserName = userRepository.findByUserName(user.getUserName());
         if(byUserName.isPresent()){
-            return new ResponseEntity<>("Username exits", HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new ResourceAlreadyExistsException("Username already exists");
         }
         Optional<User> byEmailId = userRepository.findByEmailId(user.getEmailId());
         if(byEmailId.isPresent()){
-            return new ResponseEntity<>("Email exits",HttpStatus.INTERNAL_SERVER_ERROR);
+          //  return new ResponseEntity<>("Email exits",HttpStatus.INTERNAL_SERVER_ERROR);
+            throw  new ResourceAlreadyExistsException("Email already exists");
         }
    //     String encodedPassword = passwordEncoder.encode(user.getPassword());
      //   user.setPassword(encodedPassword);
@@ -58,11 +61,13 @@ public class AuthController {
     ){
         Optional<User> byUserName = userRepository.findByUserName(user.getUserName());
         if(byUserName.isPresent()){
-            return new ResponseEntity<>("Username exits", HttpStatus.INTERNAL_SERVER_ERROR);
+            //return new ResponseEntity<>("Username exits", HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new ResourceAlreadyExistsException("Username already exists");
         }
         Optional<User> byEmailId = userRepository.findByEmailId(user.getEmailId());
         if(byEmailId.isPresent()){
-            return new ResponseEntity<>("Email exits",HttpStatus.INTERNAL_SERVER_ERROR);
+           // return new ResponseEntity<>("Email exits",HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new ResourceAlreadyExistsException("Email already exists");
         }
         //     String encodedPassword = passwordEncoder.encode(user.getPassword());
         //   user.setPassword(encodedPassword);
@@ -79,11 +84,13 @@ public class AuthController {
     ){
         Optional<User> byUserName = userRepository.findByUserName(user.getUserName());
         if(byUserName.isPresent()){
-            return new ResponseEntity<>("Username exits", HttpStatus.INTERNAL_SERVER_ERROR);
+          //return new ResponseEntity<>("Username exits", HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new ResourceAlreadyExistsException("Username already exists");
         }
         Optional<User> byEmailId = userRepository.findByEmailId(user.getEmailId());
         if(byEmailId.isPresent()){
-            return new ResponseEntity<>("Email exits",HttpStatus.INTERNAL_SERVER_ERROR);
+           // return new ResponseEntity<>("Email exits",HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new ResourceAlreadyExistsException("Email already exists");
         }
         //     String encodedPassword = passwordEncoder.encode(user.getPassword());
         //   user.setPassword(encodedPassword);
@@ -112,7 +119,8 @@ public class AuthController {
             jwtTokenDto.setTokenType("JWT");
             return new ResponseEntity<>(jwtTokenDto,HttpStatus.CREATED);
         }
-        else return new ResponseEntity<>("Invalid Token", HttpStatus.INTERNAL_SERVER_ERROR);
+        else //return new ResponseEntity<>("Invalid Token", HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new InvalidCredentialsException("Invalid username or password");
     }
     @PostMapping("/messages")
     public String getMessages(){

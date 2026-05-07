@@ -1,6 +1,7 @@
 package com.app.service;
 
 import com.app.entity.User;
+import com.app.exception.InvalidCredentialsException;
 import com.app.payload.LoginDto;
 import com.app.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -30,6 +31,7 @@ public class UserService {
 
 
     }
-        return null;
+        //return null;
+        throw new InvalidCredentialsException("Invalid username or password");
 }
 }
