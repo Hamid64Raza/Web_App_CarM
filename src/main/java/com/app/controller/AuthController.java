@@ -137,7 +137,8 @@ public class AuthController {
             logger.info("Login successful for username: {}", dto.getUserName());
             return new ResponseEntity<>(jwtTokenDto,HttpStatus.CREATED);
         }
-        else //return new ResponseEntity<>("Invalid Token", HttpStatus.INTERNAL_SERVER_ERROR);;
+        else //return new ResponseEntity<>("Invalid Token", HttpStatus.INTERNAL_SERVER_ERROR);;nch
+
             throw new InvalidCredentialsException("Invalid username or password");
     }
     @PostMapping("/messages")
@@ -154,7 +155,7 @@ public class AuthController {
             String otp = otpService.generateOTP(mobile);
             return otp + " " + mobile;
         }
-        return "User not found";
+        return "User not found.";
     }
 
     @PostMapping("/validate-otp")
